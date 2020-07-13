@@ -19,7 +19,7 @@
       </b-form-group>
       <b-form-group id="input-group-5" label="Published:" label-for="title" class="field">
         <b-form-radio v-model="book.published" name="some-radios" value="true" required>Yes</b-form-radio>
-        <b-form-radio v-model="book.published" name="some-radios" value="false">No</b-form-radio>
+        <b-form-radio v-model="book.published" name="some-radios" value="false" required="">No</b-form-radio>
       </b-form-group>
       <b-form-group v-if="book.published">
         <label for="example-datepicker">Published At:</label>
@@ -36,7 +36,9 @@ export default {
   name: "AddBook",
   data() {
     return {
-      book:{}
+      book:{
+        published:false
+      }
     };
   },
   methods: {
@@ -44,8 +46,6 @@ export default {
       console.log(this.book.published);
       if(this.book.published){
         this.book.publishedAt = new Date(this.book.publishedAt).toISOString()
-      }else{
-        this.book.publishedAt = 'not yet'
       }
       appClient.addBook(this.book).then(() => {
         this.$router.push({ name: "Home" });
