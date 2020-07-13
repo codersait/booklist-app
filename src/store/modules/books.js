@@ -19,11 +19,11 @@ const actions = {
       .getBooks()
       .then(res => {
         res.data.content.forEach(item=>{
-          if(item.publishedAt === null){
-            item.publishedAt = 'not yet'
-          }else{
+          if(item.publishedAt){
             const date = new Date(item.publishedAt)
-            item.publishedAt = format(date, 'dd/MM/yyyy')
+            item.publishedAt = format(date, 'dd/MM/yyyy')            
+          }else{
+            item.publishedAt = 'not yet'
           }
         })
         commit('setBooks', res.data.content);
